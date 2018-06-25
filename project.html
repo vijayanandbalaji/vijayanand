@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>My Gif site</title>
+<style>
+.search-input-rounded
+{
+border:2px solid black;
+width:250px;
+height:30px;
+}
+.search_button
+{
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #555555;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+#reset_button
+{
+display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #555555;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+</style>
+</head>
+
+<body bgcolor=#E6E6FA>
+<center>
+
+	<h1 style="color:#868686;">Hi Buddy!!</h1>
+	<h2 style="color:#868686;">Search For Your Gif Below	</h2>
+
+  <div class="info">
+      <form class="gif-form">
+	<input type="text" id="form-value"  class="search-input-rounded">    
+<br>
+<br>
+<hr>	
+        <button type="submit"class="search_button"> Search </button>	
+<br>
+<br>
+        <input type="reset" id="reset_button" value="Reset">
+      </form>
+<br>
+      <div class="rando_facts animated bounceIn">
+        <img id="here_is_gif" src=""/>
+      </div>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript">
+
+    $( document ).ready(function(){
+
+
+      
+      $('.search_button').on('click', function(){
+
+
+   
+        var userInput = $('#form-value').val().trim();
+
+
+        userInput = userInput.replace(/ /g, "+");
+
+
+
+        var queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + userInput + '&api_key=dc6zaTOxFJmzC';
+
+        $.ajax({url: queryURL, method: 'GET'}).done(function(response){
+
+          
+          console.log(response.data);
+         
+          var giphyURL = response.data[0].images.fixed_height.url;
+
+          console.log(giphyURL)
+
+
+      
+          $('#here_is_gif').attr('src', giphyURL);
+
+
+        });
+
+
+        $('#reset_button').on('click', function(){
+
+
+          $('#here_is_gif').attr("src",'');
+
+        })
+        return false;
+      })
+    });
+  </script>
+</center>
+</body>
+
+</html>
+
+
